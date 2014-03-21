@@ -103,6 +103,7 @@ set scrolloff=8         "Start scrolling when we're 8 lines away from margins
 set sidescrolloff=15
 set sidescroll=1
 
+let g:pymode_lint_ignore = "C"
 
 " ================ Custom Settings ========================
 so ~/.yadr/vim/settings.vim

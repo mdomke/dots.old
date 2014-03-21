@@ -125,3 +125,6 @@
   enabled = true
 [include]
   path = .gitconfig.user
+[user]
+	name = Martin Domke
+	email = martin.domke@secucloude.com
