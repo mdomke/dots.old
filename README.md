@@ -51,6 +51,8 @@ sh -c "`curl -fsSL https://raw.github.com/skwp/dotfiles/master/install.sh`" -s a
 * Install iTerm Solarized Colors - YADR will install Solarized colorschemes into your iTerm. Go to Profiles => Colors => Load Presets to pick Solarized Dark.
 * [Remap caps-lock to escape with PCKeyboardHack](http://pqrs.org/macosx/keyremap4macbook/pckeyboardhack.html) - The escape key is the single most used key in vim.  Old keyboards used to have Escape where Tab is today. Apple keyboards are the worst with their tiny Esc keys. But all this is fixed by remapping Caps to Escape.  If you're hitting a small target in the corner, you are slowing yourself down considerably, and probably damaging your hands with repetitive strain injuries.
 * Remap your Alfred or Spotlight to `Ctrl-Cmd-Space`, so that you can use `Cmd-Space` to autocomplete in vim. This is much more friendly for your fingers than `Ctrl-n`.
+* Set up a system wide hotkey for iTerm (Keys=>Hotkey). Recommended Cmd-Escape, which is really Cmd-Capslock.
+* In iTerm, uncheck "Use Lion-style full screen" on General; in MacVim, uncheck Prefer native fullscreen under Advanced settings. This will give you fast full screen windows that are switchable without switching to spaces.
 
 ### Upgrading
 
@@ -268,6 +270,14 @@ These hacks are Lion-centric. May not work for other OS'es. My favorite mods inc
   * Ultra fast key repeat rate (now you can scroll super quick using j/k)
   * No disk image verification (downloaded files open quicker)
   * Display the ~/Library folder in finder (hidden in Lion)
+
+### Macvim troubles with Lua?
+```
+brew uninstall macvim
+brew remove macvim
+brew cleanup
+brew install macvim --custom-icons --override-system-vim --with-lua --with-luajit
+```
 
 
 ### [Pry](http://pry.github.com/)
