@@ -157,3 +157,8 @@ alias spb="git checkout -b \`sp | tail -2 | grep '#' | sed 's/^ //' | sed 's/[^A
 
 
 alias lsnet="lsof -nP -i4TCP -sTCP:LISTEN"
+
+
+# Python
+alias py2="python2"
+alias py3="python3"
