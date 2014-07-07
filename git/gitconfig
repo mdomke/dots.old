@@ -128,3 +128,6 @@
 [user]
 	name = Martin Domke
 	email = martin.domke@secucloude.com
+[filter "media"]
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f

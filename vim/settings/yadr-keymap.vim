@@ -6,7 +6,7 @@
 " alias yw to yank the entire word 'yank inner word'
 " even if the cursor is halfway inside the word
 " FIXME: will not properly repeat when you use a dot (tie into repeat.vim)
-nnoremap ,yw yiww
+nnoremap ,yw yiwvew
 
 " ,ow = 'overwrite word', replace a word with what's in the yank buffer
 " FIXME: will not properly repeat when you use a dot (tie into repeat.vim)
@@ -40,6 +40,7 @@ imap <silent> <D-k> _
 imap <silent> <D-d> _
 imap <silent> <D-K> -
 imap <silent> <D-D> -
+
 
 " ,# Surround a word with #{ruby interpolation}
 map ,# ysiw#
@@ -77,15 +78,15 @@ map ,` ysiw`
 " gary bernhardt's hashrocket
 imap <c-l> <space>=><space>
 
-" Change inside various enclosures with Cmd-" and Cmd-'
+" Change inside various enclosures with ,,-" and ,,-'
 " The f makes it find the enclosure so you don't have
 " to be standing inside it
-nnoremap <D-'> f'ci'
-nnoremap <D-"> f"ci"
-nnoremap <D-(> f(ci(
-nnoremap <D-)> f)ci)
-nnoremap <D-[> f[ci[
-nnoremap <D-]> f]ci]
+nnoremap ,,' f'ci'
+nnoremap ,," f"ci"
+nnoremap ,,( f(ci(
+nnoremap ,,) f)ci)
+nnoremap ,,[ f[ci[
+nnoremap ,,] f]ci]
 
 "Go to last edit location with ,.
 nnoremap ,. '.
@@ -97,11 +98,12 @@ nnoremap ,. '.
 "
 " the first quote will autoclose so you'll get 'foo' and hitting <c-a> will
 " put the cursor right after the quote
-imap <C-a> <esc>wa
+imap <C-A> <ESC>la
+
 
 " ==== NERD tree
 " Cmd-Shift-N for nerd tree
-nmap <D-N> :NERDTreeToggle<CR>
+nmap ,< :NERDTreeToggle<CR>
 " Open the project tree and expose current file in the nerdtree with Ctrl-\
 nnoremap <silent> <C-\> :NERDTreeFind<CR>:vertical res 30<CR>
 
@@ -123,8 +125,8 @@ autocmd FileType javascript map <buffer> <D-j> {
 
 
 " Command-/ to toggle comments
-map <D-/> :TComment<CR>
-imap <D-/> <Esc>:TComment<CR>i
+" map <D-/> :TComment<CR>
+" imap <D-/> <Esc>:TComment<CR>i
 
 
 "Move back and forth through previous and next buffers
@@ -173,10 +175,10 @@ nnoremap <D-Left> <C-w><
 nnoremap <D-Right>  <C-w>>
 
 " create <%= foo %> erb tags using Ctrl-k in edit mode
-imap <silent> <C-K> <%=   %><Esc>3hi
+" imap <silent> <C-K> <%=   %><Esc>3hi
 
 " create <%= foo %> erb tags using Ctrl-j in edit mode
-imap <silent> <C-J> <%  %><Esc>2hi
+" imap <silent> <C-J> <%  %><Esc>2hi
 
 " ============================
 " Shortcuts for everyday tasks
@@ -211,8 +213,8 @@ nnoremap ` '
 " Tabularize - alignment
 " ============================
 " Hit Cmd-Shift-A then type a character you want to align by
-nmap <D-A> :Tabularize /
-vmap <D-A> :Tabularize /
+nmap <c-t> :Tabularize /
+vmap <c-t> :Tabularize /
 
 " ============================
 " SplitJoin plugin
@@ -227,4 +229,7 @@ map ,hi :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 map <D-%> :so %<CR>
 
 " ,hp = html preview
-map <silent> ,hp :!open -a Safari %<CR><CR>
+map <silent> ,hp :!open %<CR><CR>
+
+" insert current date
+map <silent> ,cd :r! date "+\%Y-\%m-\%d \%H:\%M:\%S"<CR>
