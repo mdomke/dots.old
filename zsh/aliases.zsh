@@ -102,6 +102,11 @@ alias gt='git t'
 alias gbg='git bisect good'
 alias gbb='git bisect bad'
 
+alias gff='git flow feature'
+alias gffs='git flow feature start'
+alias gffp='git flow feature publish'
+alias gfff='git flow feature finish'
+
 # Common shell functions
 alias less='less -r'
 alias tf='tail -f'
@@ -162,3 +167,13 @@ alias lsnet="lsof -nP -i4TCP -sTCP:LISTEN"
 # Python
 alias py2="python2"
 alias py3="python3"
+
+
+# Redis
+alias rstage="redis-cli -h ant-core-staging-media2.n.collins.kg -p 6380"
+
+
+alias pec="pyenv virtualenv"
+alias pea="pyenv activate"
+alias ped="pyenv deactivate"
+alias per="pyenv rehash"

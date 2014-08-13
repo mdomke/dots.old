@@ -112,6 +112,18 @@ nnoremap <silent> <C-\> :NERDTreeFind<CR>:vertical res 30<CR>
 nmap <silent> ,qc :cclose<CR>
 nmap <silent> ,qo :copen<CR>
 
+
+" toggle location list window 
+nmap <silent> ,lc :lclose<CR>
+nmap <silent> ,lo :lopen<CR>
+
+nmap ,ll :ll<CR>
+nmap ,ln :lne<CR>
+nmap ,lp :lp<CR>
+
+
+
+
 " move up/down quickly by using Cmd-j, Cmd-k
 " which will move us around by functions
 nnoremap <silent> <D-j> }

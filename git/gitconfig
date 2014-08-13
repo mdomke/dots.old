@@ -111,7 +111,7 @@
 [core]
   autocrlf = false
   editor = vim
-  excludesfile = ~/.yadr/git/gitignore
+	excludesfile = /Users/martin.domke/.yadr/git/gitignore
 [advice]
   statusHints = false
 [diff]
@@ -127,7 +127,13 @@
   path = .gitconfig.user
 [user]
 	name = Martin Domke
-	email = martin.domke@secucloude.com
+	email = martin.domke@project-collins.com
 [filter "media"]
 	clean = git-media-clean %f
 	smudge = git-media-smudge %f
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
