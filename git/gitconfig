@@ -110,8 +110,8 @@
   default = tracking
 [core]
   autocrlf = false
-  editor = vim
 	excludesfile = /Users/martin.domke/.yadr/git/gitignore
+	editor = mvim -v
 [advice]
   statusHints = false
 [diff]
