@@ -1,0 +1,66 @@
+body {
+    background: #333;
+    background: #747474 url('../images/h4x0rish/background.png') fixed;
+    color: #999999;
+    line-height : 1.3em;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+}
+
+a, a:link {
+    color: #FF9100;
+    text-shadow: 0px 0px 20px #FF9100;
+    overflow:visible;
+    text-decoration:none;
+}
+
+a:visited {
+    color: #996699;
+    text-shadow: 0px 0px 20px #996699;
+    text-decoration: none;
+    overflow:visible;
+}
+a:hover {
+    text-decoration: underline;
+    overflow:visible;
+}
+a:active {
+    text-decoration: none;
+    overflow:visible;
+}
+
+.incoming {
+    color : #ff0000;
+    text-shadow: 0px 0px 15px #ff0000;
+}
+
+
+.outgoing {
+    color : #0079f9;
+    text-shadow: 0px 0px 15px #0079f9;
+}
+
+.sender{
+    color : #fff;
+    text-shadow: 0px 0px 15px #fff;
+}
+
+input {
+    background : black
+    border : 2px solid #0cf;
+}
+
+.deco {
+	color : #9BFF00;
+    text-shadow: 0px 0px 15px #9BFF00;
+}
+  
+.status {
+    padding : 1em;
+    color : #9BFF00;
+    text-transform : uppercase;
+    text-shadow: 0px 0px 15px #9BFF00;
+}

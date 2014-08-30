@@ -11,12 +11,9 @@ task :install => [:submodule_init, :submodules] do
   puts
 
   install_homebrew if RUBY_PLATFORM.downcase.include?("darwin")
-  install_rvm_binstubs
 
   # this has all the runcoms from this directory.
   file_operation(Dir.glob('git/*')) if want_to_install?('git configs (color, aliases)')
-  file_operation(Dir.glob('irb/*')) if want_to_install?('irb/pry configs (more colorful)')
-  file_operation(Dir.glob('ruby/*')) if want_to_install?('rubygems config (faster/no docs)')
   file_operation(Dir.glob('ctags/*')) if want_to_install?('ctags config (better js/ruby support)')
   file_operation(Dir.glob('tmux/*')) if want_to_install?('tmux config')
   file_operation(Dir.glob('vimify/*')) if want_to_install?('vimification of command line tools')
@@ -24,15 +21,10 @@ task :install => [:submodule_init, :submodules] do
     file_operation(Dir.glob('{vim,vimrc}'))
     Rake::Task["install_vundle"].execute
   end
-
   Rake::Task["install_prezto"].execute
-
   install_fonts if RUBY_PLATFORM.downcase.include?("darwin")
-
   install_term_theme if RUBY_PLATFORM.downcase.include?("darwin")
-
-  run_bundle_config
-
+  install_adium_xtras
   success_msg("installed")
 end
 
@@ -129,27 +121,6 @@ def number_of_cores
   cores.to_i
 end
 
-def run_bundle_config
-  return unless system("which bundle")
-
-  bundler_jobs = number_of_cores - 1
-  puts "======================================================"
-  puts "Configuring Bundlers for parallel gem installation"
-  puts "======================================================"
-  run %{ bundle config --global jobs #{bundler_jobs} }
-  puts
-end
-
-def install_rvm_binstubs
-  puts "======================================================"
-  puts "Installing RVM Bundler support. Never have to type"
-  puts "bundle exec again! Please use bundle --binstubs and RVM"
-  puts "will automatically use those bins after cd'ing into dir."
-  puts "======================================================"
-  run %{ chmod +x $rvm_path/hooks/after_cd_bundler }
-  puts
-end
-
 def install_homebrew
   run %{which brew}
   unless $?.success?
@@ -174,6 +145,9 @@ def install_homebrew
   run %{brew install zsh ctags git hub tmux reattach-to-user-namespace the_silver_searcher}
   run %{brew install pyenv}
   run %{brew install macvim --custom-icons --override-system-vim --with-lua --with-luajit}
+  run %{brew install caskroom/cask/brew-cask}
+  run %{brew cask install adium}
+  run %{brew cask install iterm2}
   puts
   puts
 end
@@ -191,9 +165,9 @@ def install_term_theme
   puts "Installing iTerm2 solarized theme."
   puts "======================================================"
   run %{ /usr/libexec/PlistBuddy -c "Add :'Custom Color Presets':'Solarized Light' dict" ~/Library/Preferences/com.googlecode.iterm2.plist }
-  run %{ /usr/libexec/PlistBuddy -c "Merge 'iTerm2/Solarized Light.itermcolors' :'Custom Color Presets':'Solarized Light'" ~/Library/Preferences/com.googlecode.iterm2.plist }
+  run %{ /usr/libexec/PlistBuddy -c "Merge 'iterm2/Solarized Light.itermcolors' :'Custom Color Presets':'Solarized Light'" ~/Library/Preferences/com.googlecode.iterm2.plist }
   run %{ /usr/libexec/PlistBuddy -c "Add :'Custom Color Presets':'Solarized Dark' dict" ~/Library/Preferences/com.googlecode.iterm2.plist }
-  run %{ /usr/libexec/PlistBuddy -c "Merge 'iTerm2/Solarized Dark.itermcolors' :'Custom Color Presets':'Solarized Dark'" ~/Library/Preferences/com.googlecode.iterm2.plist }
+  run %{ /usr/libexec/PlistBuddy -c "Merge 'iterm2/Solarized Dark.itermcolors' :'Custom Color Presets':'Solarized Dark'" ~/Library/Preferences/com.googlecode.iterm2.plist }
 
   # If iTerm2 is not installed or has never run, we can't autoinstall the profile since the plist is not there
   if !File.exists?(File.join(ENV['HOME'], '/Library/Preferences/com.googlecode.iterm2.plist'))
@@ -207,11 +181,11 @@ def install_term_theme
 
   # Ask the user which theme he wants to install
   message = "Which theme would you like to apply to your iTerm2 profile?"
-  color_scheme = ask message, iTerm_available_themes
-  color_scheme_file = File.join('iTerm2', "#{color_scheme}.itermcolors")
+  color_scheme = ask message, iterm_available_themes
+  color_scheme_file = File.join('iterm2', "#{color_scheme}.itermcolors")
 
   # Ask the user on which profile he wants to install the theme
-  profiles = iTerm_profile_list
+  profiles = iterm_profile_list
   message = "I've found #{profiles.size} #{profiles.size>1 ? 'profiles': 'profile'} on your iTerm2 configuration, which one would you like to apply the Solarized theme to?"
   profiles << 'All'
   selected = ask message, profiles
@@ -223,17 +197,27 @@ def install_term_theme
   end
 end
 
-def iTerm_available_themes
-   Dir['iTerm2/*.itermcolors'].map { |value| File.basename(value, '.itermcolors')}
+def iterm_available_themes
+   Dir['iterm2/*.itermcolors'].map { |value| File.basename(value, '.itermcolors')}
 end
 
-def iTerm_profile_list
+def iterm_profile_list
   profiles=Array.new
   begin
     profiles <<  %x{ /usr/libexec/PlistBuddy -c "Print :'New Bookmarks':#{profiles.size}:Name" ~/Library/Preferences/com.googlecode.iterm2.plist 2>/dev/null}
   end while $?.exitstatus==0
   profiles.pop
   profiles
+end
+
+def install_adium_xtras
+  puts "======================================================"
+  puts "Installing Adium Xtras                                "
+  puts "======================================================"
+
+  adium_settings = "#{ENV["HOME"]}/Library/Application Support/Adium 2.0/"
+  run %{ mkdir -p "#{adium_settings}/Message Styles/" }
+  run %{ cp -rf adium/*.AdiumMessageStyle "#{adium_settings}/Message Styles/" }
 end
 
 def ask(message, values)
@@ -255,7 +239,7 @@ def install_prezto
   puts
   puts "Installing Prezto (ZSH Enhancements)..."
 
-  run %{ ln -nfs "$HOME/.yadr/zsh/prezto" "${ZDOTDIR:-$HOME}/.zprezto" }
+  run %{ln -nfs "$HOME/.yadr/zsh/prezto" "${ZDOTDIR:-$HOME}/.zprezto"}
 
   # The prezto runcoms are only going to be installed if zprezto has never been installed
   file_operation(Dir.glob('zsh/prezto/runcoms/z*'), :copy)
@@ -269,6 +253,10 @@ def install_prezto
   run %{ mkdir -p $HOME/.zsh.before }
   run %{ mkdir -p $HOME/.zsh.after }
   run %{ mkdir -p $HOME/.zsh.prompts }
+
+  puts "Linking settings"
+  link_zsh_settings(Dir.glob('zsh/after/*'))
+  link_zsh_settings(Dir.glob('zsh/prompts/*'))
 
   if ENV["SHELL"].include? 'zsh' then
     puts "Zsh is already configured as your shell of choice. Restart your session to load the new settings"
@@ -292,6 +280,17 @@ def want_to_install? (section)
     STDIN.gets.chomp == 'y'
   else
     true
+  end
+end
+
+
+def link_zsh_settings(files)
+  files.each do |f|
+    file = f.split("/").last
+    dir = f.split("/")[0..-2]
+    source = "#{ENV["PWD"]}/#{f}"
+    target = "#{ENV["HOME"]}/.#{dir * "."}/#{file}"
+    run %{ln -sf "#{source}" "#{target}"}
   end
 end
 

@@ -107,6 +107,9 @@ alias gffs='git flow feature start'
 alias gffp='git flow feature publish'
 alias gfff='git flow feature finish'
 
+alias gfrs='git flow release start'
+alias gfrf='git flow release finish -s'
+
 # Common shell functions
 alias less='less -r'
 alias tf='tail -f'
@@ -173,7 +176,12 @@ alias py3="python3"
 alias rstage="redis-cli -h ant-core-staging-media2.n.collins.kg -p 6380"
 
 
+# Pyenv
 alias pec="pyenv virtualenv"
 alias pea="pyenv activate"
 alias ped="pyenv deactivate"
 alias per="pyenv rehash"
+
+
+# Docker
+alias b2d="boot2docker"
