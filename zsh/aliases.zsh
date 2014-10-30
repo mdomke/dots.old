@@ -110,6 +110,9 @@ alias gfff='git flow feature finish'
 alias gfrs='git flow release start'
 alias gfrf='git flow release finish -s'
 
+alias gfhs='git flow hotfix start'
+alias gfhf='git flow hotfix finish -s'
+
 # Common shell functions
 alias less='less -r'
 alias tf='tail -f'
