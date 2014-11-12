@@ -112,6 +112,10 @@ nnoremap <silent> <C-\> :NERDTreeFind<CR>:vertical res 30<CR>
 nmap <silent> ,qc :cclose<CR>
 nmap <silent> ,qo :copen<CR>
 
+nmap ,cl :cl<CR>
+nmap ,cn :cne<CR>
+nmap ,cp :cp<CR>
+
 
 " toggle location list window 
 nmap <silent> ,lc :lclose<CR>
@@ -120,8 +124,6 @@ nmap <silent> ,lo :lopen<CR>
 nmap ,ll :ll<CR>
 nmap ,ln :lne<CR>
 nmap ,lp :lp<CR>
-
-
 
 
 " move up/down quickly by using Cmd-j, Cmd-k
