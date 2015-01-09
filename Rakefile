@@ -144,6 +144,8 @@ def install_homebrew
   puts "======================================================"
   run %{brew install zsh ctags git hub tmux reattach-to-user-namespace the_silver_searcher}
   run %{brew install pyenv}
+  run %{brew install pyenv-virtualenv}
+  run %{brew install pyenv-virtualenvwrapper}
   run %{brew install macvim --custom-icons --override-system-vim --with-lua --with-luajit}
   run %{brew install caskroom/cask/brew-cask}
   run %{brew cask install adium}
@@ -256,6 +258,7 @@ def install_prezto
 
   puts "Linking settings"
   link_zsh_settings(Dir.glob('zsh/after/*'))
+  link_zsh_settings(Dir.glob('zsh/before/*'))
   link_zsh_settings(Dir.glob('zsh/prompts/*'))
 
   if ENV["SHELL"].include? 'zsh' then
