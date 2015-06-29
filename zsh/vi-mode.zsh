@@ -1,3 +1,3 @@
 set -o vi
-export EDITOR="mvim -v"
-export VISUAL="mvim -v"
+export EDITOR="nvim"
+export VISUAL="nvim"

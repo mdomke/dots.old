@@ -13,7 +13,6 @@ alias yip='yadr init-plugins'
 # PS
 alias psa="ps aux"
 alias psg="ps aux | grep "
-alias psr='ps aux | grep ruby'
 
 # Moving around
 alias cdb='cd -'
@@ -32,11 +31,12 @@ alias ae='vim $yadr/zsh/aliases.zsh' #alias edit
 alias ar='source $yadr/zsh/aliases.zsh'  #alias reload
 
 # vim using
-mvim --version > /dev/null 2>&1
-MACVIM_INSTALLED=$?
-if [ $MACVIM_INSTALLED -eq 0 ]; then
-  alias vim="mvim -v"
-fi
+# mvim --version > /dev/null 2>&1
+# MACVIM_INSTALLED=$?
+# if [ $MACVIM_INSTALLED -eq 0 ]; then
+#   alias vim="mvim -v"
+# fi
+alias vim="nvim"
 
 # vimrc editing
 alias ve='vim ~/.vimrc'
@@ -109,9 +109,11 @@ alias gfff='git flow feature finish'
 
 alias gfrs='git flow release start'
 alias gfrf='git flow release finish -s'
+alias gfrp='git flow release publish'
 
 alias gfhs='git flow hotfix start'
 alias gfhf='git flow hotfix finish -s'
+alias gfhp='git flow hotfix publish'
 
 # Common shell functions
 alias less='less -r'
@@ -146,21 +148,6 @@ alias todo='open nvalt://find/todo'
 # Forward port 80 to 3000
 alias portforward='sudo ipfw add 1000 forward 127.0.0.1,3000 ip from any to any 80 in'
 
-alias rdm='rake db:migrate'
-alias rdmr='rake db:migrate:redo'
-
-# Zeus
-alias zs='zeus server'
-alias zc='zeus console'
-
-# Rspec
-alias rs='rspec spec'
-alias sr='spring rspec'
-alias srgm='spring rails g migration'
-alias srdm='spring rake db:migrate'
-alias srdt='spring rake db:migrate'
-alias srdmt='spring rake db:migrate db:test:prepare'
-
 # Sprintly - https://github.com/nextbigsoundinc/Sprintly-GitHub
 alias sp='sprintly'
 # spb = sprintly branch - create a branch automatically based on the bug you're working on
@@ -173,6 +160,7 @@ alias lsnet="lsof -nP -i4TCP -sTCP:LISTEN"
 # Python
 alias py2="python2"
 alias py3="python3"
+alias py-build="python setup.py bdist_wheel"
 
 
 # Redis
@@ -188,3 +176,15 @@ alias per="pyenv rehash"
 
 # Docker
 alias b2d="boot2docker"
+
+
+# virtualbox
+alias vbm="VBoxManage"
+alias vbls="vbm list runningvms"
+alias vblsa="vbm list vms"
+alias vbs="vbm startvm --type headless"
+
+function patch-tox() {
+    ./.tox/${3:-py27}/bin/pip uninstall -y $1
+    ./.tox/${3:-py27}/bin/pip install -e ~/Source/$1/
+}

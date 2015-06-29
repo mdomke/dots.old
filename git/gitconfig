@@ -110,7 +110,7 @@
   default = tracking
 [core]
   autocrlf = false
-	excludesfile = /Users/martin.domke/.yadr/git/gitignore
+	excludesfile = /Users/mdomke/.gitignore_global
 	editor = mvim -v
 [advice]
   statusHints = false

@@ -8,4 +8,5 @@ nnoremap <silent> ,gs :Gstatus<CR>
 nnoremap <silent> ,gc :Gcommit --verbose<CR>
 nnoremap <silent> ,gm :Gmerge<CR>
 nnoremap <silent> ,gpl :Gpull<CR>
+nnoremap <silent> ,gp :Gpush<CR>
 nnoremap <silent> ,ga :Gwrite<CR>
