@@ -184,7 +184,20 @@ alias vbls="vbm list runningvms"
 alias vblsa="vbm list vms"
 alias vbs="vbm startvm --type headless"
 
+# itermocil
+alias it="itermocil"
+
+
 function patch-tox() {
-    ./.tox/${3:-py27}/bin/pip uninstall -y $1
-    ./.tox/${3:-py27}/bin/pip install -e ~/Source/$1/
+  ./.tox/${3:-py27}/bin/pip uninstall -y $1
+  ./.tox/${3:-py27}/bin/pip install -e ~/Source/$1/
+}
+
+function mapi-config () {
+  cp -f ~/Source/mapi/mapi/docker/$1/etc/collins/conf.d/mapi-server.conf ~/.config/collins.conf
+  if [[ $1 == "" ]]; then
+    echo "{}" > ~/.config/collins.conf
+  fi
+  echo "Using docker/$1/etc/collins/conf.d/mapi-server.conf @ ~/.config/collins.conf"
+  cat ~/.config/collins.conf
 }

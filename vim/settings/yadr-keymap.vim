@@ -112,9 +112,9 @@ nnoremap <silent> <C-\> :NERDTreeFind<CR>:vertical res 30<CR>
 nmap <silent> ,qc :cclose<CR>
 nmap <silent> ,qo :copen<CR>
 
-nmap ,cl :cl<CR>
-nmap ,cn :cne<CR>
-nmap ,cp :cp<CR>
+nmap ,ql :cl<CR>
+nmap ,qn :cne<CR>
+nmap ,qp :cp<CR>
 
 
 " toggle location list window 

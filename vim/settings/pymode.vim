@@ -1,6 +1,7 @@
 
 let g:pymode_lint_ignore = "C0111"
 let g:pymode_rope_completion = 0
+let g:pymode_options_max_line_length = 100
 
 let g:pymode_rope_rename_bind = '<leader>pr'
 let g:pymode_rope_organize_imports_bind = '<leader>po'
