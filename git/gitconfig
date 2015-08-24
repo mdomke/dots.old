@@ -111,7 +111,7 @@
 [core]
   autocrlf = false
 	excludesfile = /Users/mdomke/.gitignore_global
-	editor = mvim -v
+	editor = nvim
 [advice]
   statusHints = false
 [diff]
