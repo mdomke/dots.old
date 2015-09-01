@@ -1,6 +1,5 @@
-Bundle "chrisbra/color_highlight.git"
-Bundle "skwp/vim-colors-solarized"
-Bundle "itchyny/lightline.vim"
-Bundle "morhetz/gruvbox"
-Bundle "xsunsmile/showmarks.git"
-Bundle "CSApprox"
+Plugin 'chrisbra/color_highlight.git'
+Plugin 'skwp/vim-colors-solarized'
+Plugin 'itchyny/lightline.vim'
+Plugin 'xsunsmile/showmarks.git'
+Plugin 'CSApprox'

@@ -1,4 +1,4 @@
 " Bundle 'klen/python-mode'
-Bundle 'TFenby/python-mode'
-Bundle 'davidhalter/jedi-vim'
-Bundle 'valloric/youcompleteme'
+Plugin 'TFenby/python-mode'
+Plugin 'davidhalter/jedi-vim'
+Plugin 'valloric/youcompleteme'
