@@ -12,13 +12,13 @@ task :install => [:submodule_init, :submodules] do
 
   install_homebrew if RUBY_PLATFORM.downcase.include?("darwin")
 
-  # this has all the runcoms from this directory.
   file_operation(Dir.glob('git/*')) if want_to_install?('git configs (color, aliases)')
   file_operation(Dir.glob('ctags/*')) if want_to_install?('ctags config (better js/ruby support)')
   file_operation(Dir.glob('tmux/*')) if want_to_install?('tmux config')
   file_operation(Dir.glob('vimify/*')) if want_to_install?('vimification of command line tools')
   if want_to_install?('vim configuration (highly recommended)')
     file_operation(Dir.glob('{vim,vimrc}'))
+    run %{ ln -s vim .config/nvim }
     Rake::Task["install_vundle"].execute
   end
   Rake::Task["install_prezto"].execute
@@ -28,24 +28,27 @@ task :install => [:submodule_init, :submodules] do
   success_msg("installed")
 end
 
+
 task :install_prezto do
   if want_to_install?('zsh enhancements & prezto')
     install_prezto
   end
 end
 
-task :update do
-  Rake::Task["vundle_migration"].execute if needs_migration_to_vundle?
-  Rake::Task["install"].execute
-  #TODO: for now, we do the same as install. But it would be nice
-  #not to clobber zsh files
+
+desc "Update brews and vundles."
+task :update => [:submodule_init, :submodules] do
+  update_homebrew
+  Vundle::update_vundle
 end
+
 
 task :submodule_init do
   unless ENV["SKIP_SUBMODULES"]
     run %{ git submodule update --init --recursive }
   end
 end
+
 
 desc "Init and update submodules."
 task :submodules do
@@ -63,24 +66,6 @@ task :submodules do
   end
 end
 
-desc "Performs migration from pathogen to vundle"
-task :vundle_migration do
-  puts "======================================================"
-  puts "Migrating from pathogen to vundle vim plugin manager. "
-  puts "This will move the old .vim/bundle directory to"
-  puts ".vim/bundle.old and replacing all your vim plugins with"
-  puts "the standard set of plugins. You will then be able to "
-  puts "manage your vim's plugin configuration by editing the "
-  puts "file .vim/vundles.vim"
-  puts "======================================================"
-
-  Dir.glob(File.join('vim', 'bundle','**')) do |sub_path|
-    run %{git config -f #{File.join('.git', 'config')} --remove-section submodule.#{sub_path}}
-    # `git rm --cached #{sub_path}`
-    FileUtils.rm_rf(File.join('.git', 'modules', sub_path))
-  end
-  FileUtils.mv(File.join('vim','bundle'), File.join('vim', 'bundle.old'))
-end
 
 desc "Runs Vundle installer in a clean vim environment"
 task :install_vundle do
@@ -88,14 +73,13 @@ task :install_vundle do
   puts "Installing and updating vundles."
   puts "The installer will now proceed to run BundleInstall."
   puts "======================================================"
-
   puts ""
 
-  vundle_path = File.join('vim','bundle', 'vundle')
+  vundle_path = File.join('vim', 'bundle', 'vundle')
   unless File.exists?(vundle_path)
     run %{
       cd $HOME/.yadr
-      git clone https://github.com/gmarik/vundle.git #{vundle_path}
+      git clone https://github.com/gmarik/vundle #{vundle_path}
     }
   end
 
@@ -111,15 +95,6 @@ def run(cmd)
   `#{cmd}` unless ENV['DEBUG']
 end
 
-def number_of_cores
-  if RUBY_PLATFORM.downcase.include?("darwin")
-    cores = run %{ sysctl -n hw.ncpu }
-  else
-    cores = run %{ nproc }
-  end
-  puts
-  cores.to_i
-end
 
 def install_homebrew
   run %{which brew}
@@ -131,36 +106,43 @@ def install_homebrew
     run %{ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"}
   end
 
-  puts
-  puts
+  update_homebrew
+end
+
+
+def update_homebrew
   puts "======================================================"
-  puts "Updating Homebrew."
+  puts "Installing/Updating Homebrew packages..."
   puts "======================================================"
   run %{brew update}
-  puts
-  puts
-  puts "======================================================"
-  puts "Installing Homebrew packages...There may be some warnings."
-  puts "======================================================"
+  run %{brew upgrade}
   run %{brew install zsh ctags git hub tmux reattach-to-user-namespace the_silver_searcher}
-  run %{brew install pyenv}
-  run %{brew install pyenv-virtualenv}
-  run %{brew install pyenv-virtualenvwrapper}
-  run %{brew install macvim --custom-icons --override-system-vim --with-lua --with-luajit}
   run %{brew install caskroom/cask/brew-cask}
+  run %{brew tap caskroom/versions}
   run %{brew cask install adium}
-  run %{brew cask install iterm2}
-  puts
-  puts
+  run %{brew cask install iterm2-nightly}
+  run %{brew cask install google-chrome-beta}
+  run %{brew cask install virtualbox}
+  run %{brew cask install seil karabiner}
+  run %{brew cask install spotify}
+  run %{brew cask install viscosity}
+  run %{brew cask install istat-menus}
+  run %{brew cask install 1password}
+  run %{brew cask install launchbar}
+
+  run %{brew tap neovim/neovim}
+  run %{brew reinstall --HEAD neovim}
 end
+
 
 def install_fonts
   puts "======================================================"
   puts "Installing patched fonts for Powerline/Lightline."
   puts "======================================================"
-  run %{ cp -f $HOME/.yadr/fonts/* $HOME/Library/Fonts }
+  run %{cp -f $HOME/.yadr/fonts/* $HOME/Library/Fonts}
   puts
 end
+
 
 def install_term_theme
   puts "======================================================"
@@ -199,9 +181,11 @@ def install_term_theme
   end
 end
 
+
 def iterm_available_themes
    Dir['iterm2/*.itermcolors'].map { |value| File.basename(value, '.itermcolors')}
 end
+
 
 def iterm_profile_list
   profiles=Array.new
@@ -212,6 +196,7 @@ def iterm_profile_list
   profiles
 end
 
+
 def install_adium_xtras
   puts "======================================================"
   puts "Installing Adium Xtras                                "
@@ -221,6 +206,7 @@ def install_adium_xtras
   run %{ mkdir -p "#{adium_settings}/Message Styles/" }
   run %{ cp -rf adium/*.AdiumMessageStyle "#{adium_settings}/Message Styles/" }
 end
+
 
 def ask(message, values)
   puts message
@@ -236,6 +222,7 @@ def ask(message, values)
   selection = selection.to_i-1
   values[selection]
 end
+
 
 def install_prezto
   puts
@@ -277,6 +264,7 @@ def install_prezto
   end
 end
 
+
 def want_to_install? (section)
   if ENV["ASK"]=="true"
     puts "Would you like to install configuration files for: #{section}? [y]es, [n]o"
@@ -296,6 +284,7 @@ def link_zsh_settings(files)
     run %{ln -sf "#{source}" "#{target}"}
   end
 end
+
 
 def file_operation(files, method = :symlink)
   files.each do |f|
@@ -332,15 +321,12 @@ def file_operation(files, method = :symlink)
   end
 end
 
-def needs_migration_to_vundle?
-  File.exists? File.join('vim', 'bundle', 'tpope-vim-pathogen')
-end
-
 
 def list_vim_submodules
   result=`git submodule -q foreach 'echo $name"||"\`git remote -v | awk "END{print \\\\\$2}"\`'`.select{ |line| line =~ /^vim.bundle/ }.map{ |line| line.split('||') }
   Hash[*result.flatten]
 end
+
 
 def apply_theme_to_iterm_profile_idx(index, color_scheme_path)
   values = Array.new
@@ -350,6 +336,7 @@ def apply_theme_to_iterm_profile_idx(index, color_scheme_path)
 
   run %{ /usr/libexec/PlistBuddy -c "Merge '#{color_scheme_path}' :'New Bookmarks':#{index}" ~/Library/Preferences/com.googlecode.iterm2.plist }
 end
+
 
 def success_msg(action)
   puts ""
