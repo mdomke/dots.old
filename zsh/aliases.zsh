@@ -159,7 +159,6 @@ alias spb="git checkout -b \`sp | tail -2 | grep '#' | sed 's/^ //' | sed 's/[^A
 
 alias lsnet="lsof -nP -i4TCP -sTCP:LISTEN"
 
-
 # Python
 alias py2="python2"
 alias py3="python3"
@@ -169,17 +168,11 @@ alias py-build="python setup.py bdist_wheel"
 # Redis
 alias rstage="redis-cli -h ant-core-staging-media2.n.collins.kg -p 6380"
 
-
 # Pyenv
 alias pec="pyenv virtualenv"
 alias pea="pyenv activate"
 alias ped="pyenv deactivate"
 alias per="pyenv rehash"
-
-
-# Docker
-alias b2d="boot2docker"
-
 
 # virtualbox
 alias vbm="VBoxManage"
@@ -191,16 +184,3 @@ alias vbs="vbm startvm --type headless"
 alias it="itermocil"
 
 
-function patch-tox() {
-  ./.tox/${3:-py27}/bin/pip uninstall -y $1
-  ./.tox/${3:-py27}/bin/pip install -e ~/Source/$1/
-}
-
-function mapi-config () {
-  cp -f ~/Source/mapi/mapi/docker/$1/etc/collins/conf.d/mapi-server.conf ~/.config/collins.conf
-  if [[ $1 == "" ]]; then
-    echo "{}" > ~/.config/collins.conf
-  fi
-  echo "Using docker/$1/etc/collins/conf.d/mapi-server.conf @ ~/.config/collins.conf"
-  cat ~/.config/collins.conf
-}
