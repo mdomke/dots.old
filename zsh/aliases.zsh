@@ -184,3 +184,7 @@ alias vbs="vbm startvm --type headless"
 alias it="itermocil"
 
 
+# docker
+alias dcp="docker-compose"
+alias dma="docker-machine"
+alias dsw="docker-swarm"
