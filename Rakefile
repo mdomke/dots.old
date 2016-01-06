@@ -116,7 +116,7 @@ def update_homebrew
   puts "======================================================"
   run %{brew update}
   run %{brew upgrade}
-  run %{brew install zsh ctags git hub tmux reattach-to-user-namespace the_silver_searcher mr}
+  run %{brew install zsh ctags git hub tmux reattach-to-user-namespace the_silver_searcher mr grc}
   run %{brew install caskroom/cask/brew-cask}
   run %{brew tap caskroom/versions}
   run %{brew cask install adium}
