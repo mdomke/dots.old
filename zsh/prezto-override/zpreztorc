@@ -42,6 +42,7 @@ zstyle ':prezto:load' pmodule \
   'syntax-highlighting' \
   'history-substring-search' \
   'ssh' \
+  'gpg' \
   'prompt'
 
 #
@@ -49,10 +50,10 @@ zstyle ':prezto:load' pmodule \
 #
 
 # Set the key mapping style to 'emacs' or 'vi'.
-zstyle ':prezto:module:editor' key-bindings 'emacs'
+zstyle ':prezto:module:editor' key-bindings 'vi'
 
 # Auto convert .... to ../..
-# zstyle ':prezto:module:editor' dot-expansion 'yes'
+zstyle ':prezto:module:editor' dot-expansion 'yes'
 
 #
 # Git
@@ -96,7 +97,7 @@ zstyle ':prezto:module:prompt' theme 'sorin'
 #
 
 # Enable SSH-Agent protocol emulation.
-# zstyle ':prezto:module:gpg-agent' ssh-support 'yes'
+zstyle ':prezto:module:gpg-agent' ssh-support 'yes'
 
 #
 # SSH-Agent
@@ -115,11 +116,11 @@ zstyle ':prezto:module:ssh-agent' forwarding 'yes'
 # Set syntax highlighters.
 # By default main, brackets, and cursor are enabled.
 # zstyle ':prezto:module:syntax-highlighting' highlighters \
-#   'main' \
-#   'brackets' \
-#   'pattern' \
-#   'cursor' \
-#   'root'
+#    'main' \
+#    'brackets' \
+#    'pattern' \
+#    'cursor' \
+#    'root'
 
 #
 # Terminal

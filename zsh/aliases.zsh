@@ -158,6 +158,7 @@ alias spb="git checkout -b \`sp | tail -2 | grep '#' | sed 's/^ //' | sed 's/[^A
 
 
 alias lsnet="lsof -nP -i4TCP -sTCP:LISTEN"
+alias ping="/usr/local/bin/grc ping"
 
 # Python
 alias py2="python2"

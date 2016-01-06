@@ -116,7 +116,7 @@ def update_homebrew
   puts "======================================================"
   run %{brew update}
   run %{brew upgrade}
-  run %{brew install zsh ctags git hub tmux reattach-to-user-namespace the_silver_searcher}
+  run %{brew install zsh ctags git hub tmux reattach-to-user-namespace the_silver_searcher mr}
   run %{brew install caskroom/cask/brew-cask}
   run %{brew tap caskroom/versions}
   run %{brew cask install adium}
@@ -129,6 +129,7 @@ def update_homebrew
   run %{brew cask install istat-menus}
   run %{brew cask install 1password}
   run %{brew cask install launchbar}
+  run %{brew cask install gpgtools}
 
   run %{brew tap neovim/neovim}
   run %{brew reinstall --HEAD neovim}
