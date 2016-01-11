@@ -1,17 +1,18 @@
-" This remaps easymotion to show us only the left
-" hand home row keys as navigation options which 
-" may mean more typing to get to a particular spot
-" but it'll all be isolated to one area of the keyboard
-call EasyMotion#InitOptions({
-\   'leader_key'      : '<Leader><Leader>'
-\ , 'keys'            : 'fjdksewoavn'
-\ , 'do_shade'        : 1
-\ , 'do_mapping'      : 1
-\ , 'grouping'        : 1
-\
-\ , 'hl_group_target' : 'Type'
-\ , 'hl_group_shade'  : 'Comment'
-\ })
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
-nmap ,<ESC> ,,w
-nmap ,<S-ESC> ,,b
+" Bi-directional find motion
+" Jump to anywhere you want with minimal keystrokes, with just one key
+" binding.
+" " `s{char}{label}`
+nmap <Leader>s <Plug>(easymotion-s)
+" " or
+" " `s{char}{char}{label}`
+" " Need one more keystroke, but on average, it may be more comfortable.
+" nmap s <Plug>(easymotion-s2)
+"
+" " Turn on case insensitive feature
+" let g:EasyMotion_smartcase = 1
+"
+" " JK motions: Line motions
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)"
