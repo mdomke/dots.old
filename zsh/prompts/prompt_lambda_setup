@@ -7,6 +7,10 @@ function prompt_lambda_precmd {
     git-info on
     git-info
   fi
+
+  if (( $+functions[python-info] )); then
+    python-info
+  fi
 }
 
 function prompt_lambda_setup {
@@ -49,8 +53,11 @@ function prompt_lambda_setup {
   zstyle ':prezto:module:git:info:untracked' format "${__PROMPT_LAMBDA_COLORS[3]}●%f"
   zstyle ':prezto:module:git:info:keys' format 'prompt' '%b%d%a%m%u'
 
+  # python
+  zstyle ':prezto:module:python:info:virtualenv' format "${__PROMPT_LAMBDA_COLORS[1]}[%v]%f"
+
   PROMPT="${__PROMPT_LAMBDA_COLORS[1]}λ%f "
-  RPROMPT="${__PROMPT_LAMBDA_COLORS[1]}%2~%f "'$git_info[prompt]'""
+  RPROMPT="${__PROMPT_LAMBDA_COLORS[1]}%2~%f "'$git_info[prompt]'" "'$python_info[virtualenv]'""
 }
 
 prompt_lambda_setup "$@"
