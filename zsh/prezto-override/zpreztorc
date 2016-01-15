@@ -1,11 +1,4 @@
 #
-# Sets Prezto options.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
-
-#
 # General
 #
 
@@ -27,6 +20,7 @@ zstyle ':prezto:load' pmodule \
   'environment' \
   'terminal' \
   'editor' \
+  'spectrum' \
   'history' \
   'directory' \
   'utility' \
@@ -42,7 +36,6 @@ zstyle ':prezto:load' pmodule \
   'ssh' \
   'gpg' \
   'prompt'
-# 'spectrum' \
 # 'ruby' \
 # 'node' \
 
@@ -73,7 +66,7 @@ zstyle ':prezto:module:editor' dot-expansion 'yes'
 # Set the prompt theme to load.
 # Setting it to 'random' loads a random theme.
 # Auto set to 'off' on dumb terminals.
-zstyle ':prezto:module:prompt' theme 'lambda'
+zstyle ':prezto:module:prompt' theme 'off'
 
 #
 # GPG-Agent

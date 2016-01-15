@@ -25,13 +25,13 @@ function prompt_lambda_setup {
   # Use extended color pallete if available.
   if [[ $TERM = *256color* || $TERM = *rxvt* ]]; then
     __PROMPT_LAMBDA_COLORS=(
-      "%F{33}"  # blue
-      "%F{136}" # yellow
-      "%F{125}" # magenta
-      "%F{160}" # red
-      "%F{64}"  # green
-      "%F{166}" # orange
-      "%F{61}"  # violet
+      "%F{33}"  # 1 blue
+      "%F{136}" # 2 yellow
+      "%F{125}" # 3 magenta
+      "%F{160}" # 4 red
+      "%F{64}"  # 5 green
+      "%F{166}" # 6 orange
+      "%F{61}"  # 7 violet
     )
   else
     __PROMPT_LAMBDA_COLORS=(
@@ -46,6 +46,7 @@ function prompt_lambda_setup {
   fi
 
   # git
+  zstyle ':prezto:module:git:info' verbose 'yes'
   zstyle ':prezto:module:git:info:branch' format "${__PROMPT_LAMBDA_COLORS[7]}%b%f"
   zstyle ':prezto:module:git:info:added' format "${__PROMPT_LAMBDA_COLORS[5]}●%f"
   zstyle ':prezto:module:git:info:deleted' format "${__PROMPT_LAMBDA_COLORS[2]}●%f"

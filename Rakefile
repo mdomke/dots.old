@@ -116,7 +116,7 @@ def update_homebrew
   puts "======================================================"
   run %{brew update}
   run %{brew upgrade}
-  run %{brew install zsh ctags git hub tmux reattach-to-user-namespace the_silver_searcher mr grc}
+  run %{brew install zsh ctags git hub tmux reattach-to-user-namespace the_silver_searcher mr grc fasd}
   run %{brew install caskroom/cask/brew-cask}
   run %{brew tap caskroom/versions}
   run %{brew cask install adium}
@@ -147,7 +147,7 @@ end
 
 def install_term_theme
   puts "======================================================"
-  puts "Installing iTerm2 solarized theme."
+  puts "Installing iterm2 solarized theme."
   puts "======================================================"
   run %{ /usr/libexec/PlistBuddy -c "Add :'Custom Color Presets':'Solarized Light' dict" ~/Library/Preferences/com.googlecode.iterm2.plist }
   run %{ /usr/libexec/PlistBuddy -c "Merge 'iterm2/Solarized Light.itermcolors' :'Custom Color Presets':'Solarized Light'" ~/Library/Preferences/com.googlecode.iterm2.plist }
@@ -243,6 +243,7 @@ def install_prezto
   run %{ mkdir -p $HOME/.zsh.before }
   run %{ mkdir -p $HOME/.zsh.after }
   run %{ mkdir -p $HOME/.zsh.prompts }
+  run %{ touch $HOME/.hushlogin}
 
   puts "Linking settings"
   link_zsh_settings(Dir.glob('zsh/after/*'))
