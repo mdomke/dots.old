@@ -1,6 +1,6 @@
 " via: http://rails-bestpractices.com/posts/60-remove-trailing-whitespace
 " Strip trailing whitespace
-function! <SID>StripTrailingWhitespaces()
+function! s:StripTrailingWhitespaces()
     " Preparation: save last search, and cursor position.
     let _s=@/
     let l = line(".")

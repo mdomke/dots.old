@@ -1,5 +1,0 @@
-Plugin 'chrisbra/color_highlight.git'
-Plugin 'skwp/vim-colors-solarized'
-Plugin 'itchyny/lightline.vim'
-Plugin 'xsunsmile/showmarks.git'
-Plugin 'CSApprox'

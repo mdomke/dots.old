@@ -1,0 +1,5 @@
+Plug 'godlygeek/csapprox'
+Plug 'chrisbra/colorizer'
+Plug 'skwp/vim-colors-solarized'
+Plug 'itchyny/lightline.vim'
+Plug 'jeetsukumaran/vim-markology'
