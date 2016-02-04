@@ -31,7 +31,7 @@ alias ar='source $home/zsh/aliases.zsh'  #alias reload
 alias vim="nvim"
 
 # vimrc editing
-alias ve='vim ~/.vimrc'
+alias ve='vim ~/.config/nvim/init.vim'
 
 # zsh profile editing
 alias ze='vim ~/.zshrc'

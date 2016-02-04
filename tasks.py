@@ -116,7 +116,7 @@ def update_vim_plugins():
 def setup_zsh():
     task_description('Setup zsh')
     enable_zsh()
-    vimify_shell()
+    make_dots()
     do_fonts()
     install_prezto()
     end()
@@ -125,13 +125,12 @@ def setup_zsh():
 @task
 def reset_zsh():
     task_description('Resetting zsh')
-    vimify_shell(install=False)
+    make_dots(install=False)
     do_fonts(install=False)
     uninstall_prezto()
 
 
 def enable_zsh():
-
     if 'zsh' in os.environ['SHELL']:
         info('zsh is already configured as default shell')
         return
@@ -186,9 +185,10 @@ def do_prezto_files(install=True):
            action='link' if install else 'unlink')
 
 
-def vimify_shell(install=True):
-    info('%s vim keybindings' % 'Installing' if install else 'Uninstalling')
+def make_dots(install=True):
+    info('%s misc dot files' % 'Installing' if install else 'Uninstalling')
     dir_op('$HOME/.dots/vimify', action='link' if install else 'unlink')
+    dir_op('$HOME/.dots/git', action='link' if install else 'unlink')
 
 
 def do_fonts(install=True):

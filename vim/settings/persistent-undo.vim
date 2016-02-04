@@ -2,6 +2,6 @@
 " but this gives warnings under command line vim
 " use only in macvim
 if v:version > '702'
-  set undodir=~/.vim/backups
+  set undodir=~/.config/nvim/backups
   set undofile
 endif
