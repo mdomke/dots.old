@@ -86,4 +86,4 @@ set sidescrolloff=15
 set sidescroll=1
 
 " ================ Custom Settings ========================
-so ~/.yadr/vim/settings.vim
+so ~/.config/nvim/settings.vim

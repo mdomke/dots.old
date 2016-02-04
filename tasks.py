@@ -5,14 +5,6 @@ import sys
 from invoke import task, run
 
 
-# Result = type('Result', (object, ), {'failed': False})
-#
-#
-# def run(cmd, **kwargs):
-#     print(cmd)
-#     return Result()
-
-
 @task
 def init_submodules():
     task_description('Update submodules')
@@ -89,7 +81,7 @@ def setup_vim():
     task_description('Setting up vim')
     info('Creating config locations')
     run('mkdir -p $HOME/.config/')
-    file_op('$HOME/.yadr/vim', '$HOME/.config/nvim')
+    file_op('$HOME/.dots/vim', '$HOME/.config/nvim')
 
     install_vimplug()
     install_vim_plugins()
@@ -98,7 +90,7 @@ def setup_vim():
 
 def reset_vim():
     info('Reset vim configuration')
-    file_op('$HOME/.yadr/vim', '$HOME/.config/nvim', action='unlink')
+    file_op('$HOME/.dots/vim', '$HOME/.config/nvim', action='unlink')
     end()
 
 
@@ -167,7 +159,7 @@ def install_prezto():
     do_prezto_files(install=True)
 
     with open(os.path.expanduser('~/.zshrc'), 'a') as fp:
-        fp.write('for config_file ($HOME/.yadr/zsh/*.zsh) source $config_file')
+        fp.write('for config_file ($HOME/.dots/zsh/*.zsh) source $config_file')
 
 
 @task
@@ -178,30 +170,30 @@ def uninstall_prezto():
 
 def do_prezto_files(install=True):
 
-    dir_op('$HOME/.yadr/zsh/prezto/runcoms',
+    dir_op('$HOME/.dots/zsh/prezto/runcoms',
            match='z*',
            skip='zpreztorc' if install else None,
            action='copy' if install else 'remove')
-    file_op('$HOME/.yadr/zsh/prezto', '$HOME/.zprezto', action='link' if install else 'unlink')
-    file_op('$HOME/.yadr/zsh/prezto-override/zpreztorc', '$HOME/.zpreztorc',
+    file_op('$HOME/.dots/zsh/prezto', '$HOME/.zprezto', action='link' if install else 'unlink')
+    file_op('$HOME/.dots/zsh/prezto-override/zpreztorc', '$HOME/.zpreztorc',
             action='link' if install else 'unlink')
 
-    dir_op('$HOME/.yadr/zsh/before', dstdir='$HOME/.zsh.before',
+    dir_op('$HOME/.dots/zsh/before', dstdir='$HOME/.zsh.before',
            action='link' if install else 'unlink')
-    dir_op('$HOME/.yadr/zsh/after', dstdir='$HOME/.zsh.after',
+    dir_op('$HOME/.dots/zsh/after', dstdir='$HOME/.zsh.after',
            action='link' if install else 'unlink')
-    dir_op('$HOME/.yadr/zsh/prompts', dstdir='$HOME/.zsh.prompts',
+    dir_op('$HOME/.dots/zsh/prompts', dstdir='$HOME/.zsh.prompts',
            action='link' if install else 'unlink')
 
 
 def vimify_shell(install=True):
     info('%s vim keybindings' % 'Installing' if install else 'Uninstalling')
-    dir_op('$HOME/.yadr/vimify', action='link' if install else 'unlink')
+    dir_op('$HOME/.dots/vimify', action='link' if install else 'unlink')
 
 
 def do_fonts(install=True):
     info('%s fonts' % 'Installing' if install else 'Uninstalling')
-    dir_op('$HOME/.yadr/fonts', dstdir='$HOME/Library/Fonts',
+    dir_op('$HOME/.dots/fonts', dstdir='$HOME/Library/Fonts',
            action='copy' if install else 'remove')
 
 

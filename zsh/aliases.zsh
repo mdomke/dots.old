@@ -1,14 +1,6 @@
 # Aliases in this file are bash and zsh compatible
 
-# Don't change. The following determines where YADR is installed.
-yadr=$HOME/.yadr
-
-# YADR support
-alias yav='yadr vim-add-plugin'
-alias ydv='yadr vim-delete-plugin'
-alias ylv='yadr vim-list-plugin'
-alias yup='yadr update-plugins'
-alias yip='yadr init-plugins'
+home=$HOME/.dots
 
 # PS
 alias psa="ps aux"
@@ -27,8 +19,8 @@ alias du='du -h -d 2'
 alias lsg='ll | grep'
 
 # Alias Editing
-alias ae='vim $yadr/zsh/aliases.zsh' #alias edit
-alias ar='source $yadr/zsh/aliases.zsh'  #alias reload
+alias ae='vim $home/zsh/aliases.zsh' #alias edit
+alias ar='source $home/zsh/aliases.zsh'  #alias reload
 
 # vim using
 # mvim --version > /dev/null 2>&1
