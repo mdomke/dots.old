@@ -203,9 +203,9 @@ def install_iterm_themes():
 
     tool = '/usr/libexec/PlistBuddy -c'
     plist = '$HOME/Library/Preferences/com.googlecode.iterm2.plist'
-    for theme_file in fnmatch.filter(os.listdir('iterm2'), '*.itermcolors'):
+    for theme_file in fnmatch.filter(os.listdir('iterm'), '*.itermcolors'):
         theme_name = os.path.splitext(theme_file)[0]
-        file_path = os.path.join('iterm2', theme_file)
+        file_path = os.path.join('iterm', theme_file)
         entry = ":'Custom Color Presets':'{}'".format(theme_name)
 
         info('Adding %s' % theme_name)
