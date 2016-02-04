@@ -97,6 +97,7 @@ alias py2="python2"
 alias py3="python3"
 alias py-build="python setup.py bdist_wheel"
 alias pip-upgrade="pip freeze --local | grep -v '^\-e' | cut -f 1 -d = | xargs pip install -U"
+alias repl="ptipython"
 
 
 # Redis
