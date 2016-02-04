@@ -28,6 +28,7 @@ def install():
     setup_vim()
     install_iterm_themes()
     install_adium_xtras()
+    install_extra_bins()
 
 
 @task
