@@ -59,7 +59,7 @@ def install_brews():
 
     info('Installings brews')
     brews = ['neovim', 'zsh', 'ctags', 'git', 'hub', 'tmux', 'mr', 'grc', 'fasd',
-             'the_silver_searcher', 'reattach-to-user-namespace']
+             'the_silver_searcher', 'reattach-to-user-namespace', 'httpie', 'jq']
     for brew in brews:
         op('Install %s' % brew)
         run('brew install %s' % brew, hide='both')
