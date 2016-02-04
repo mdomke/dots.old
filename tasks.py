@@ -8,7 +8,7 @@ from invoke import task, run
 @task
 def init_submodules():
     task_description('Update submodules')
-    # run('git submodule update --init --recursive')
+    run('git submodule update --init --recursive')
 
 
 @task(init_submodules)
@@ -59,7 +59,7 @@ def install_brews():
 
     info('Installings brews')
     brews = ['neovim', 'zsh', 'ctags', 'git', 'hub', 'tmux', 'mr', 'grc', 'fasd',
-             'the_silver_searcher', 'reattach-to-user-namespace', 'httpie', 'jq']
+             'the_silver_searcher', 'httpie', 'jq']
     for brew in brews:
         op('Install %s' % brew)
         run('brew install %s' % brew, hide='both')
