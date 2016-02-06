@@ -110,8 +110,11 @@ alias vbs="vbm startvm --type headless"
 # itermocil
 alias it="itermocil"
 
-
 # docker
 alias dcp="docker-compose"
 alias dma="docker-machine"
 alias dsw="docker-swarm"
+
+ifip() {
+  ifconfig $1 | awk '/inet /{print$2}'
+}

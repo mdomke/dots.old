@@ -54,12 +54,13 @@ def update_homebrew():
     run('brew upgrade', warn=True)
 
 
+@task
 def install_brews():
     run('brew tap neovim/neovim')
 
     info('Installings brews')
     brews = ['neovim', 'zsh', 'ctags', 'git', 'hub', 'tmux', 'mr', 'grc', 'fasd',
-             'the_silver_searcher', 'httpie', 'jq']
+             'the_silver_searcher', 'httpie', 'jq', 'thefuck']
     for brew in brews:
         op('Install %s' % brew)
         run('brew install %s' % brew, hide='both')

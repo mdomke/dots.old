@@ -105,7 +105,6 @@ nmap ,lp :lp<CR>
 
 
 "Move back and forth through previous and next buffers
-"with ,z and ,n
 nnoremap <silent> ,x :bp<CR>
 nnoremap <silent> ,n :bn<CR>
 
@@ -124,7 +123,7 @@ nnoremap <C-w>f :sp +e<cfile><CR>
 nnoremap <C-w>gf :tabe<cfile><CR>
 
 " Zoom in and out of current window with ,gz
-map <silent> ,gz <C-w>o
+map <silent> ,z <C-w>o
 
 
 " Create window splits easier. The default
