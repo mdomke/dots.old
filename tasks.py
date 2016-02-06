@@ -21,6 +21,7 @@ def install():
     install_iterm_themes()
     install_adium_xtras()
     install_extra_bins()
+    install_python_essentials()
 
 
 @task
@@ -59,7 +60,7 @@ def install_brews():
     run('brew tap neovim/neovim')
 
     info('Installings brews')
-    brews = ['neovim', 'zsh', 'ctags', 'git', 'hub', 'tmux', 'mr', 'grc', 'fasd',
+    brews = ['python', 'neovim', 'zsh', 'ctags', 'git', 'hub', 'tmux', 'mr', 'grc', 'fasd',
              'the_silver_searcher', 'httpie', 'jq', 'thefuck']
     for brew in brews:
         op('Install %s' % brew)
@@ -228,6 +229,14 @@ def install_extra_bins():
     task_description('Install custom binaries')
     run('mkdir -p $HOME/.bin')
     dir_op('bin', dstdir='$HOME/.bin')
+
+
+@task
+def install_python_essentials():
+    task_description('Install essential python tools')
+    packages = ['neovim', 'pygments']
+    for package in packages:
+        run('pip install %s' % package)
 
 
 def dir_op(dirname, match=None, skip=None, dstdir=None, action=None):
