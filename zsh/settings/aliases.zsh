@@ -2,6 +2,17 @@
 
 home=$HOME/.dots
 
+# Global aliases
+alias -g ...='../..'
+alias -g ....='../../..'
+alias -g .....='../../../..'
+alias -g C='| wc -l'
+alias -g H='| head'
+alias -g L="| less"
+alias -g N="| /dev/null"
+alias -g S='| sort'
+alias -g G='| grep' # now you can do: ls foo G something
+
 # PS
 alias psa="ps aux"
 alias psg="ps aux | grep "
@@ -115,7 +126,3 @@ alias it="itermocil"
 alias dcp="docker-compose"
 alias dma="docker-machine"
 alias dsw="docker-swarm"
-
-ifip() {
-  ifconfig $1 | awk '/inet /{print$2}'
-}

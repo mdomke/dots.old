@@ -34,3 +34,17 @@ dl() {
     fi
   done
 }
+
+
+# (f)ind by (n)ame
+# usage: fn foo
+# to find all files containing 'foo' in the name
+fn() { ls **/*$1* }
+
+ifip() {
+  ifconfig $1 | awk '/inet /{print$2}'
+}
+
+function cryptpw() {
+  python -c "import bcrypt; print bcrypt.hashpw('$1', bcrypt.gensalt())"
+}

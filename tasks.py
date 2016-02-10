@@ -1,8 +1,12 @@
 from __future__ import print_function
 import fnmatch
 import os
+import json
 import sys
 from invoke import task, run
+
+
+CONFIG = {}
 
 
 @task
@@ -13,6 +17,7 @@ def init_submodules():
 
 @task(init_submodules)
 def install():
+    read_config()
     if sys.platform == 'darwin':
         install_homebrew()
 
@@ -66,7 +71,6 @@ def install_brews():
         op('Install %s' % brew)
         run('brew install %s' % brew, hide='both')
 
-    run('brew install caskroom/cask/brew-cask')
     run('brew tap caskroom/versions')
 
     info('Installings casks')
@@ -151,16 +155,13 @@ def enable_zsh():
 @task
 def install_prezto():
     info('Installing prezto')
-
-    run('mkdir -p $HOME/.zsh.before')
-    run('mkdir -p $HOME/.zsh.after')
     run('mkdir -p $HOME/.zsh.prompts')
     run('touch $HOME/.hushlogin')
 
     do_prezto_files(install=True)
 
     with open(os.path.expanduser('~/.zshrc'), 'a') as fp:
-        fp.write('for config_file ($HOME/.dots/zsh/*.zsh) source $config_file')
+        fp.write('for config_file ($HOME/.dots/zsh/settings/*.zsh) source $config_file')
 
 
 @task
@@ -265,6 +266,13 @@ def file_op(src, dst=None, action=None):
     elif action == 'remove':
         op('Remove: %s' % dst)
         run('rm -f "%s"' % dst)
+
+
+@task
+def read_config():
+    global CONFIG
+    with open('./config.json') as fp:
+        CONFIG = json.load(fp)
 
 
 def task_description(message):

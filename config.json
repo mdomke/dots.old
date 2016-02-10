@@ -1,0 +1,35 @@
+{
+  "formulas": [
+    "python",
+    "neovim",
+    "zsh",
+    "ctags",
+    "git",
+    "hub",
+    "tmux",
+    "mr",
+    "grc",
+    "fasd",
+    "the_silver_searcher",
+    "httpie",
+    "jq",
+    "thefuck",
+    "itermocil",
+    "gitignore"
+  ],
+  "taps": [
+    "caskroom/cask",
+    "caskroom/versions",
+    "homebrew/binary",
+    "homebrew/completions",
+    "homebrew/nginx",
+    "homebrew/versions",
+    "karan/karan",
+    "neovim/neovim",
+    "tomanthony/brews"
+  ],
+  "after-scrips": [
+  ],
+  "symlinks": [
+  ]
+}
