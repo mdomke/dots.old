@@ -1,6 +1,6 @@
-nmap < [
-nmap > ]
-omap < [
-omap > ]
-xmap < [
-xmap > ]
+nmap - [
+nmap _ ]
+omap - [
+omap _ ]
+xmap - [
+xmap _ ]
