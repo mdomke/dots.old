@@ -10,14 +10,20 @@ CONFIG = {}
 
 
 @task
+def read_config():
+    global CONFIG
+    with open('./config.json') as fp:
+        CONFIG = json.load(fp)
+
+
+@task
 def init_submodules():
     task_description('Update submodules')
     run('git submodule update --init --recursive')
 
 
-@task(init_submodules)
+@task(read_config, init_submodules)
 def install():
-    read_config()
     if sys.platform == 'darwin':
         install_homebrew()
 
@@ -29,7 +35,7 @@ def install():
     install_python_essentials()
 
 
-@task
+@task(read_config)
 def uninstall():
     reset_zsh()
     reset_vim()
@@ -60,23 +66,20 @@ def update_homebrew():
     run('brew upgrade', warn=True)
 
 
-@task
+@task(read_config)
 def install_brews():
-    run('brew tap neovim/neovim')
+    info('Tapping...')
+    for tap in CONFIG.get('taps', []):
+        op('Tap %s' % tap)
+        run('brew tap %s' % tap, hide='both')
 
-    info('Installings brews')
-    brews = ['python', 'neovim', 'zsh', 'ctags', 'git', 'hub', 'tmux', 'mr', 'grc', 'fasd',
-             'the_silver_searcher', 'httpie', 'jq', 'thefuck']
-    for brew in brews:
+    info('Installings brews...')
+    for brew in CONFIG.get('formulas', []):
         op('Install %s' % brew)
         run('brew install %s' % brew, hide='both')
 
-    run('brew tap caskroom/versions')
-
-    info('Installings casks')
-    casks = ['iterm2-nightly', 'google-chrome-beta', 'virtualbox', 'seil karabiner', 'spotify',
-             'viscosity', 'istat-menus', '1password', 'launchbar', 'gpgtools', 'adium']
-    for cask in casks:
+    info('Installings casks...')
+    for cask in CONFIG.get('casks', []):
         op('Install %s' % cask)
         run('brew cask install %s' % cask, hide='both')
     end()
@@ -180,13 +183,6 @@ def do_prezto_files(install=True):
     file_op('$HOME/.dots/zsh/prezto-override/zpreztorc', '$HOME/.zpreztorc',
             action='link' if install else 'unlink')
 
-    dir_op('$HOME/.dots/zsh/before', dstdir='$HOME/.zsh.before',
-           action='link' if install else 'unlink')
-    dir_op('$HOME/.dots/zsh/after', dstdir='$HOME/.zsh.after',
-           action='link' if install else 'unlink')
-    dir_op('$HOME/.dots/zsh/prompts', dstdir='$HOME/.zsh.prompts',
-           action='link' if install else 'unlink')
-
 
 def make_dots(install=True):
     info('%s misc dot files' % 'Installing' if install else 'Uninstalling')
@@ -266,13 +262,6 @@ def file_op(src, dst=None, action=None):
     elif action == 'remove':
         op('Remove: %s' % dst)
         run('rm -f "%s"' % dst)
-
-
-@task
-def read_config():
-    global CONFIG
-    with open('./config.json') as fp:
-        CONFIG = json.load(fp)
 
 
 def task_description(message):

@@ -5,6 +5,7 @@
     "zsh",
     "ctags",
     "git",
+    "git-flow-avh",
     "hub",
     "tmux",
     "mr",
@@ -15,6 +16,7 @@
     "jq",
     "thefuck",
     "itermocil",
+    "dropbox",
     "gitignore"
   ],
   "taps": [
@@ -27,6 +29,19 @@
     "karan/karan",
     "neovim/neovim",
     "tomanthony/brews"
+  ],
+  "casks": [
+    "iterm2-nightly",
+    "google-chrome-beta",
+    "virtualbox",
+    "seil karabiner",
+    "spotify",
+    "viscosity",
+    "istat-menus",
+    "1password",
+    "launchbar",
+    "gpgtools",
+    "adium"
   ],
   "after-scrips": [
   ],
